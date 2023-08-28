@@ -45,8 +45,9 @@ class Centurion::DockerServer
     end
   end
 
-  def find_containers_by_name(wanted_name)
-    ps.select do |container|
+  def find_containers_by_name(wanted_name, include_all = false)
+    containers = include_all ? ps(all: true) : ps
+    containers.select do |container|
       next unless container && container['Names']
       container['Names'].find do |name|
         name =~ /\A\/#{wanted_name}(-[a-f0-9]{14})?\Z/
@@ -59,7 +60,7 @@ class Centurion::DockerServer
   end
 
   def old_containers_for_name(wanted_name)
-    find_containers_by_name(wanted_name).select do |container|
+    find_containers_by_name(wanted_name, true).select do |container|
       container["Status"] =~ /^(Exit |Exited)/
     end
   end
