@@ -84,7 +84,8 @@ module Centurion::Deploy
     info "Service name #{service.name}"
     old_containers.each do |old_container|
       info "Removing old container #{old_container['Id'][0..7]} (#{old_container['Names'].join(',')})"
-      target_server.remove_container(old_container['Id'])
+      # target_server.remove_container(old_container['Id'])
+      info "Removal skipped (temporal)"
     end
   end
 
