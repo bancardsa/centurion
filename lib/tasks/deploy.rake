@@ -10,6 +10,12 @@ task :deploy do
   invoke 'deploy:cleanup'
 end
 
+task :deploy_without_cleanup do
+  invoke 'deploy:get_image'
+  invoke 'deploy:stop'
+  invoke 'deploy:start_new'
+end
+
 task :deploy_console do
   invoke 'deploy:get_image'
   #invoke 'deploy:stop'
