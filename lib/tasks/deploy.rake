@@ -10,6 +10,11 @@ task :deploy do
   invoke 'deploy:cleanup'
 end
 
+task :start_new_container do
+  invoke 'deploy:stop'
+  invoke 'deploy:start_new'
+end
+
 task :deploy_without_cleanup do
   invoke 'deploy:get_image'
   invoke 'deploy:stop'
