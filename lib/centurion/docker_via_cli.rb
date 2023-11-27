@@ -38,6 +38,12 @@ class Centurion::DockerViaCli
     end
   end
 
+  def restart(container_id)
+    connect do
+      Centurion::Shell.echo(build_command(:restart, container_id))
+    end
+  end
+
   def exec(container_id, commandline)
     connect do
       Centurion::Shell.echo(build_command(:exec, "#{container_id} #{commandline}"))
@@ -90,6 +96,7 @@ class Centurion::DockerViaCli
                when :logs then ' logs -f '
                when :attach then ' attach '
                when :exec then ' exec '
+               when :restart then ' restart '
                end
     command << destination
     command

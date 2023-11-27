@@ -38,6 +38,7 @@ end
 task :stop => ['deploy:stop']
 task :enter_container => ['deploy:enter_container']
 task :logs => ['deploy:logs']
+task :restart => ['deploy:restart']
 
 namespace :dev do
   task :export_only do
@@ -129,6 +130,12 @@ namespace :deploy do
   task :enter_container do
     on_first_docker_host do |server|
       enter_container(server, defined_service)
+    end
+  end
+
+  task :restart do
+    on_each_docker_host do |server|
+      restart_container(server, defined_service)
     end
   end
 
