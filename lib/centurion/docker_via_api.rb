@@ -16,7 +16,7 @@ class Centurion::DockerViaApi
     else
       @base_uri = "http#{'s' if tls_enable?}://#{hostname}:#{port}"
     end
-    api_version ||= "/v1.12"
+    api_version ||= "/v1.24"
     @docker_api_version = api_version
     configure_excon_globally
   end
@@ -88,7 +88,6 @@ class Centurion::DockerViaApi
     response = with_excon do |e|
       e.post(
         path: path,
-        body: configuration.to_json,
         headers: { "Content-Type" => "application/json" }
       )
     end
