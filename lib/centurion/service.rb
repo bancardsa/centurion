@@ -103,7 +103,7 @@ module Centurion
       @security_opt << seccomp
     end
 
-    def build_config(server_hostname, &block)
+    def build_config(server_hostname, restart_policy, &block)
       container_config = {}.tap do |c|
         c['Image'] = image
         c['Hostname'] = block.call(server_hostname) if block_given?
@@ -136,6 +136,8 @@ module Centurion
           memo
         end
       end
+
+      container_config['HostConfig'] = build_host_config(restart_policy)
 
       container_config
     end

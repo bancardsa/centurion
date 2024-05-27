@@ -71,6 +71,7 @@ class Centurion::DockerViaApi
 
   def create_container(configuration, name = nil)
     path = @docker_api_version + "/containers/create"
+
     response = with_excon do |e|
       e.post(
         path: path,
